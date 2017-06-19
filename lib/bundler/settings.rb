@@ -31,6 +31,7 @@ module Bundler
       plugins
       prefer_gems_rb
       silence_root_warning
+      suppress_install_using_messages
       unlock_source_unlocks_spec
       update_requires_all_flag
     ].freeze
