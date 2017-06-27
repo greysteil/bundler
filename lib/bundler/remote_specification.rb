@@ -73,7 +73,15 @@ module Bundler
     end
 
     def dependencies
-      @dependencies || method_missing(:dependencies)
+      @dependencies ||= begin
+        deps = method_missing(:dependencies)
+        unless deps.all? {|d| d.is_a?(Gem::Dependency) }
+          # allow us to handle when the specs dependencies are an array of array of string
+          # see https://github.com/bundler/bundler/issues/5797
+          deps.map! {|d| Gem::Dependency.new(*d) }
+        end
+        deps
+      end
     end
 
     def git_version
