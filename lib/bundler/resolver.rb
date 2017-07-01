@@ -180,7 +180,7 @@ module Bundler
         return [] unless spec
         # Only allow endpoint specifications since they won't hit the network to
         # fetch the full gemspec when calling required_ruby_version
-        return [] if !spec.is_a?(EndpointSpecification) && !spec.is_a?(Gem::Specification)
+        return [] if !spec.is_a?(Gem::Specification) && !spec.is_a?(Bundler::StubSpecification)
         dependencies = []
         if !spec.required_ruby_version.nil? && !spec.required_ruby_version.none?
           dependencies << DepProxy.new(Gem::Dependency.new("ruby\0", spec.required_ruby_version), platform)
